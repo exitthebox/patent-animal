@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Description Search</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar
+    placeholder="Description Search"
+    searchIcon="search"
+    debounce="500"
+    (ionChange)="searchTerm$.next($event.target?.value)"
+    (ionClear)="clearArray()"
+    (ionFocus)="clearArray()"
+    [(ngModel)]="descSearch"
+  >
+  </ion-searchbar>
+  <div class="centerIonSpinner">
+      <ion-spinner *ngIf="descSearch && results.length == 0" name="lines"></ion-spinner>
+  </div>
+  <ion-list>
+    <ion-card *ngFor="let result of results"
+    [routerLink]="['/patent-document/', result.docNumber]"
+    >
+      <ion-slides pager='true' [options]='slideOpts'>
+        <ion-slide *ngFor="let slide of result.picBufferArray">
+            <ion-img class="ionImage" [src]="slide"></ion-img>
+          
+        </ion-slide>
+      </ion-slides>
+
+
+      <ion-item href="#" class="">
+        <ion-card-header>{{result.title}}</ion-card-header>
+        
+      </ion-item>
+      <ion-label>{{result.docNumber}}</ion-label>
+
+    </ion-card>
+
+
+    <!-- <ion-item
+      size="12"
+      *ngFor="let result of results"
+      [routerLink]="['/patent-document/', result.docNumber]"
+      text-wrap
+    >
+      <ion-label> # {{ result.docNumber }} - {{ result.title }} </ion-label>
+    </ion-item> -->
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreTitles($event)">
+    <ion-infinite-scroll-content loadSpinner="bubble" loadingText="loading titles..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- <ion-grid>
+    <ion-row *ngIf="descSearch">
+      <ion-col size="12" *ngFor="let fakeResult of fakeResults">
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+</ion-content>

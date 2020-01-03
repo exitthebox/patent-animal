@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Refine your search by code</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-searchbar 
+  debounce="500"
+  (ionChange)="searchSubgroup($event.target?.value)"
+>
+</ion-searchbar>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row >
+      <ion-col 
+        size-xs="12"
+        size-sm="6"
+        size-md="4"
+        size-lg="3"
+        *ngFor="let code of cpcCodes">
+        <!-- <ion-button size="small" href="#">Anchor</ion-button> -->
+        <ion-item lines="full">
+          <ion-label>
+              {{code.classificationNumber}}:
+              {{code.classificationText | sentencecase | slice: 0:75}}...
+              <!-- {{code.classificationText}} -->
+          </ion-label>
+          <!-- ion-checkbox: send in code.checkedToggle with a bang because it will initialize it, then I have to flip it back in the .ts file -->
+        <ion-checkbox 
+          slot="start" 
+          checked="false"
+          [(ngModel)]="code.checkedToggle" 
+          (ionChange)="toggleCheckbox(code.classificationNumber, !code.checkedToggle)"
+        ></ion-checkbox>
+        </ion-item>
+
+      </ion-col>
+     
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="!cpcCodes">
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div><div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div><div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div><div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div><div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div><div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
+  </div>
+</ion-content>

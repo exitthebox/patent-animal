@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Patent Number Search</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar
+    placeholder="Patent Number Search"
+    searchIcon="search"
+    debounce="500"
+    (ionChange)="getPatentDoc(docSearch)"
+    (ionClear)="clearArray()"
+    (ionFocus)="clearArray()"
+    [(ngModel)]="docSearch"
+  >
+  </ion-searchbar>
+
+  <ng-container *ngIf="results.length">
+    <ion-item>
+      Link to Patent Images
+    </ion-item>
+
+    <ion-card *ngIf="results?.length > 0">
+      <ion-card-header>
+        <div *ngFor="let title of results">
+          <ion-card-subtitle 
+            *ngFor="let titleName of title.PATENT_TITLE">
+            {{ titleName | sentencecase }}
+          </ion-card-subtitle>
+        </div>
+      </ion-card-header>
+      <div *ngFor="let docNumber of results">
+        <ion-card-content 
+          *ngFor="let docNum of docNumber.PATENT_NUMBER">
+          <br>
+          Patent Number: {{ docNum  }}
+        </ion-card-content>
+      </div>
+      <div *ngFor="let assignee of results">
+        
+            <ion-card-content *ngFor="let assigneeName of assignee.ASSIGNEE_NAME">
+              Owners: {{ assigneeName | titlecase  }}
+            </ion-card-content>
+        
+      </div>
+      <hr>
+      <div *ngFor="let inventor of results">
+        <!-- <div *ngFor="let inventorAddress of inventor.INVENTOR_ADDRESS"></div> -->
+          <div class="inventors">Inventors:</div> 
+          <ion-grid>
+              <ion-row >
+                <ion-col size="6" *ngFor="let inventorName of inventor.INVENTOR_NAME">
+                  <span class="inventorsPatents" (click)="inventorsPatents(inventorName)" >{{ inventorName | titlecase }}</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+      </div>
+      <hr>
+      <div *ngFor="let attorney of results">
+          <div class="inventors">Attorneys:</div> 
+            <ion-card-content *ngFor="let attorneyName of attorney.ATTORNEY_NAME">
+              {{ attorneyName | titlecase  }}
+            </ion-card-content>
+          
+      </div>
+      <ion-item 
+        [routerLink]="['/related-patents', id]" 
+        >
+          Related Patents
+      </ion-item>
+      <!-- <h2><a [routerLink]="['/tabs/patent-document', id]" fragment="relatedPatents">Related Patents</a></h2> -->
+      <hr>
+      <div *ngFor="let description of results">
+        <div class="inventors">Description:</div>
+        <ion-card-content *ngFor="let desc of description.DESCRIPTION | filter: searchText">
+            <span [innerHTML]="desc | sentencecase | highlight: searchText"></span>
+        <!-- {{ desc | sentencecase }} -->
+          <br>
+        </ion-card-content>
+      </div>
+      <!-- <div *ngFor="let relPatent of doc">
+        <ion-item id="relatedPatents"></ion-item>
+          <h3 class="inventor" >Related Patents:</h3> 
+            <ion-grid>
+              <ion-row >
+                <ion-col size="4" *ngFor="let relNumber of relPatent.RELATED_NUMBER">
+                  <div class="relNumber" [routerLink]="['/tabs/patent-document', relNumber]">{{ relNumber }}</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          
+      </div> -->
+    </ion-card>
+ 
+  </ng-container>
+</ion-content>

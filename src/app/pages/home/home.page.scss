@@ -1,0 +1,59 @@
+.register{
+    text-align: center;
+    // margin: auto;
+    // width: 50%;
+}
+
+.patentRaven{
+    text-align: center;
+}
+
+.ionContent{
+    color: red;
+}
+
+.homeDesc{
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+  //  background: #d0d0d0;
+
+}
+
+.homeDesc p{
+    text-align: center;
+}
+
+.homeTitle {
+    text-align: center;
+    font-size: 2em;
+    width: 100%;
+   // min-height: 200px;
+   // background: orange;
+   // padding: 10px;
+    margin-top: 20px;
+    padding: 10px 10px 0px 10px;
+    margin-bottom: -144px;
+    position: relative;
+    z-index: 1;
+}
+
+.homeMargin{
+    margin: 100px;
+}
+   
+// ion-margin{
+//     --margin: 50px;
+//   }
+
+ion-content.background{
+    --background: url(../../../assets/background/settings.svg) 0 0/100% 100% no-repeat;
+    background-color: #bdadad;
+}
+
+ion-button{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -68.5px;
+    width: 140px;
+}

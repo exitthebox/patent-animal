@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Search by Abstract Description</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar 
+    placeholder="Abstract Search (contains)" 
+    searchIcon="search"
+    debounce="500" 
+    (ionChange)="searchTerm$.next($event.target?.value)"
+    (ionClear)="clearArray()"
+    (ionFocus)="clearArray()"
+    [(ngModel)]="searchTermInput"
+  >
+    <!-- <ion-label position="floating">Title Search Term</ion-label> -->
+    <!-- <ion-input (ionInput)="searchTerm$.next($event.target.value)"></ion-input> -->
+    <!-- <ion-input debounce="400" (ionChange)="searchTerm$.next($event.target.value)"></ion-input> -->
+  </ion-searchbar>
+
+  <div class="centerIonSpinner">
+      <ion-spinner *ngIf="searchTermInput && results.length == 0"></ion-spinner>
+  </div>
+
+
+  <ion-list>
+    <ion-card *ngFor="let result of results"
+    [routerLink]="['/patent-document/', result.docNumber]"
+    >
+      <ion-slides pager='true' [options]='slideOpts'>
+        <ion-slide *ngFor="let slide of result.picBufferArray">
+            <ion-img class="ionImage" [src]="slide"></ion-img>
+          
+        </ion-slide>
+      </ion-slides>
+
+
+      <ion-item href="#" class="">
+        <ion-card-header>{{result.title}}</ion-card-header>
+        
+      </ion-item>
+      <ion-label>{{result.docNumber}}</ion-label>
+
+    </ion-card>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadMoreTitles($event)">
+    <ion-infinite-scroll-content loadSpinner="bubble" loadingText="loading titles..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- <pagination-controls class="titlePagination" (pageChange)="p = $event"></pagination-controls> -->
+
+</ion-content>
+

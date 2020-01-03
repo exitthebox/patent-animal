@@ -1,0 +1,185 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Patent Detail</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+<!-- <div *ngIf="patentDocument$; else other_content"> -->
+
+
+
+  <ion-searchbar
+    placeholder="Description Text Search" 
+    searchIcon="search"
+    debounce="400"
+    [(ngModel)]="searchText"
+  ></ion-searchbar>
+  <div *ngIf="patentDocument$  | async as doc">
+    <!-- <ion-item *ngFor="let link of doc">
+      <div *ngFor="let pdfLink of link.PDF_URL">
+          <span class="inventorsPatents" (click)="linkToPDF(pdfLink)">Link to PDF</span>
+
+      </div>
+    </ion-item> -->
+
+    <ion-card >
+      <ion-card-header>
+        <div>
+          <ion-card-subtitle class="ionSubtitle">
+            {{doc.title | sentencecase}}
+          </ion-card-subtitle>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="ionCardDocNumber">
+            Patent: {{doc.docNumber}}
+        </div  >
+        
+
+        <h3 (click)="toggleHideShowImages()" class="toggleBlock toggleImages" > Images </h3>
+
+        <div *ngIf="showImages">
+            <!-- <div class="centerIonSpinner">
+                <ion-spinner *ngIf="showImagesSection"></ion-spinner>
+            </div> -->
+
+            <div  *ngIf="patentImages$ | async as images">
+
+                <ion-slides class="slideDiv" pager='true' [options]='slideOpts'>
+                  <ion-slide *ngFor="let slideImage of images">
+                    <ion-img   [src]="slideImage"></ion-img>
+                  </ion-slide>
+                </ion-slides>
+            </div>
+        </div>
+        
+        
+        <!-- <ion-card-content *ngFor="let desc of description.DESCRIPTION | filter: searchText">
+            <span [innerHTML]="desc | sentencecase | highlight: searchText"></span>
+          <br>
+        </ion-card-content> -->
+        <h3 (click)="toggleHideShowDesc()" class="toggleBlock toggleDescription" > Description </h3>
+          <ion-item *ngIf="showDesc">
+            <span innerHTML="{{doc.description | filter: searchText | sentencecase | highlight: searchText}}">
+
+            </span>
+            <!-- {{doc.description | sentencecase}} -->
+          </ion-item>
+
+
+
+        <h3 (click)="toggleHideShowAssignee()" class="toggleBlock toggleAssignee" > Assignee </h3>
+          <ion-item *ngIf="showAssignee">
+            <ul>
+                <li *ngFor="let assignee of doc.assignee">
+                    {{ assignee | titlecase  }}
+                 </li>
+            </ul>
+
+            <!-- Owners: {{ doc.assingee | titlecase }} -->
+          </ion-item>
+
+        <h3 (click)="toggleHideShowInventor()" class="toggleBlock toggleInventor" > Inventor </h3>
+        <ion-item *ngIf="showInventor">
+          <ul>
+              <li *ngFor="let inventor of doc.inventors">
+                  <span class="inventorsPatents" (click)="inventorsPatents(inventor)" >{{ inventor | titlecase }}</span>
+                <!-- <span>&nbsp;</span> {{ inventor | titlecase  }} -->
+              </li>
+          </ul>
+            
+        </ion-item>
+    
+        <h3 (click)="toggleHideShowAttorney()" class="toggleBlock toggleAttorney" > Attorney </h3>
+        <ion-item *ngIf="showAttorney">
+          <ul>
+              <li *ngFor="let attorney of doc.attornies">
+                  {{ attorney | titlecase  }}
+              </li>
+          </ul>
+            
+        </ion-item>
+
+        <h3 (click)="toggleHideShowRelated()" class="toggleBlock toggleRelated" > Related Patents </h3>
+        <ion-item *ngIf="showRelated">
+           <ul>
+            <li *ngFor="let related of doc.relatedPatents">
+              {{ related }} 
+            </li>
+           </ul>
+            
+        </ion-item>
+
+      </ion-card-content>
+
+
+      <!-- <ion-card-header>
+        <div *ngFor="let title of doc">
+          <ion-card-subtitle 
+            *ngFor="let titleName of title.PATENT_TITLE">
+            {{ titleName | sentencecase }}
+          </ion-card-subtitle>
+        </div>
+      </ion-card-header>
+      <div *ngFor="let docNumber of doc">
+        <ion-card-content 
+          *ngFor="let docNum of docNumber.PATENT_NUMBER">
+          <br>
+          Patent Number: {{ docNum  }}
+        </ion-card-content>
+      </div>
+      <div *ngFor="let assignee of doc">
+        
+            <ion-card-content *ngFor="let assigneeName of assignee.ASSIGNEE_NAME">
+              Owners: {{ assigneeName | titlecase  }}
+            </ion-card-content>
+        
+      </div> -->
+      <!-- <hr>
+      <div *ngFor="let inventor of doc">
+          <div class="inventors">Inventors:</div> 
+          <ion-grid>
+              <ion-row >
+                <ion-col size="6" *ngFor="let inventorName of inventor.INVENTOR_NAME">
+                  <span class="inventorsPatents" (click)="inventorsPatents(inventorName)" >{{ inventorName | titlecase }}</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+      </div>
+      <hr>
+      <div *ngFor="let attorney of doc">
+          <div class="inventors">Attorneys:</div> 
+            <ion-card-content *ngFor="let attorneyName of attorney.ATTORNEY_NAME">
+              {{ attorneyName | titlecase  }}
+            </ion-card-content>
+          
+      </div>
+      <ion-item 
+        [routerLink]="['/related-patents', id]" 
+        >
+          Related Patents
+      </ion-item>
+      <hr>
+      <div *ngFor="let description of doc">
+        <div class="inventors">Description:</div>
+        <ion-card-content *ngFor="let desc of description.DESCRIPTION | filter: searchText">
+            <span [innerHTML]="desc | sentencecase | highlight: searchText"></span>
+          <br>
+        </ion-card-content>
+      </div> -->
+      
+    </ion-card>
+ 
+  </div>
+
+</ion-content>

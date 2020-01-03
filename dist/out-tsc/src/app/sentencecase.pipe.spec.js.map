@@ -1,0 +1,1 @@
+{"version":3,"file":"sentencecase.pipe.spec.js","sourceRoot":"","sources":["../../../../src/app/sentencecase.pipe.spec.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,qBAAqB,CAAC;AAEvD,QAAQ,CAAC,kBAAkB,EAAE;IAC3B,EAAE,CAAC,oBAAoB,EAAE;QACvB,IAAM,IAAI,GAAG,IAAI,gBAAgB,EAAE,CAAC;QACpC,MAAM,CAAC,IAAI,CAAC,CAAC,UAAU,EAAE,CAAC;IAC5B,CAAC,CAAC,CAAC;AACL,CAAC,CAAC,CAAC"}

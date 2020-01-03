@@ -1,0 +1,64 @@
+<ion-content>
+
+  <div>
+    <ion-button
+    (click)='callS3()'>
+      Harness Test
+    </ion-button>
+    <div *ngIf="s3Url">
+      Image Data exists
+      <ion-img [src]="s3Url"></ion-img>
+    </div>
+  </div>
+  <div *ngIf="(patentDocument$ | async) as doc">
+    <ion-item *ngFor="let title of doc">
+      <div *ngFor="let titleName of title.PATENT_TITLE">
+        {{ titleName | sentencecase }}
+      </div>
+    </ion-item>
+    <ion-item *ngFor="let docNumber of doc">
+      <div *ngFor="let docNum of docNumber.PATENT_NUMBER">
+        Patent Number: {{ docNum }}
+      </div>
+    </ion-item>
+    <ion-item *ngFor="let assignee of doc">
+      <div *ngFor="let assigneeName of assignee.ASSIGNEE_NAME">
+        Owners: {{ assigneeName | titlecase }}
+      </div>
+    </ion-item>
+    <div>
+      <ion-buttons>
+        <ion-button
+          class="buttonClass"
+          (click)="toggleHideShow()"
+          expand="block"
+          color="success"
+          fill="solid"
+        >
+          Description
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div *ngIf="show">
+      <h1>Description</h1>
+      <ion-searchbar
+        placeholder="Description Text Search"
+        searchIcon="search"
+        debounce="500"
+        [(ngModel)]="searchText"
+      ></ion-searchbar>
+
+      <div *ngFor="let description of doc">
+        <ion-card-content
+          *ngFor="let desc of (description.DESCRIPTION | filter: searchText)"
+        >
+          <span
+            [innerHTML]="desc | sentencecase | highlight: searchText"
+          ></span>
+          <!-- {{ desc | sentencecase }} -->
+          <br />
+        </ion-card-content>
+      </div>
+    </div>
+  </div>
+</ion-content>

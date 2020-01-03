@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Related Patents</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="(patentDocument$ | async) as doc">
+    <ion-card>
+      <ion-card-header>
+        <div *ngFor="let title of doc">
+          <ion-card-subtitle *ngFor="let titleName of title.PATENT_TITLE">
+            {{ titleName }}
+          </ion-card-subtitle>
+        </div>
+        <div *ngFor="let docNumber of doc">
+          <ion-card-title *ngFor="let docNum of docNumber.PATENT_NUMBER">
+            <br />
+            Patent Number: {{ docNum }}
+          </ion-card-title>
+        </div>
+      </ion-card-header>
+      <div *ngFor="let relPatent of doc">
+        <ion-item id="relatedPatents"></ion-item>
+        <!-- <h3 class="inventor">Related Patents:</h3> -->
+        <ion-grid>
+          <ion-row>
+            <ion-col
+              size="4"
+              *ngFor="let relNumber of relPatent.RELATED_NUMBER"
+            >
+              <div
+                class="relNumber"
+                [routerLink]="['/tabs/patent-document', relNumber]"
+              >
+                {{ relNumber }}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item
+          [routerLink]="['/patent-document', id]">&lt;&lt; back
+        </ion-item>
+        
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

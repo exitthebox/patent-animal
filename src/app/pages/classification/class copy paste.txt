@@ -1,0 +1,64 @@
+    <ion-grid fixed>
+      <ion-row >
+        <ion-searchbar 
+          *ngIf="cpcCodes.length > 0"
+          placeholder="Filter CPC Text"
+          [(ngModel)]="filterCpcCode"
+          debounce="500"
+          (ionChange)="searchTerm$.next($event.target?.value)"
+        ></ion-searchbar>
+        <ion-col 
+          size-xs="12"
+          size-sm="6"
+          size-md="4"
+          size-lg="3"
+          *ngFor="let code of cpcCodes">
+          <!-- <ion-button size="small" href="#">Anchor</ion-button> -->
+          <ion-item lines="full">
+            <ion-label>
+                {{code.classificationNumber}}:
+                {{code.classificationText | sentencecase | slice: 0:75}}...
+                <!-- {{code.classificationText}} -->
+            </ion-label>
+            <!-- ion-checkbox: send in code.checkedToggle with a bang because it will initialize it, then I have to flip it back in the .ts file -->
+          <ion-checkbox 
+            slot="start" 
+            checked="false"
+            [(ngModel)]="code.checkedToggle" 
+            (ionChange)="toggleCheckbox(code.classificationNumber, !code.checkedToggle)"
+          ></ion-checkbox>
+          </ion-item>
+  
+        </ion-col>
+       
+      </ion-row>
+    </ion-grid>
+
+
+    ********************
+
+
+    <ion-list>
+      <ion-searchbar 
+          *ngIf="cpcCodes.length > 0"
+          placeholder="Filter CPC Text"
+          [(ngModel)]="filterCpcCode"
+          debounce="500"
+          (ionChange)="searchTerm$.next($event.target?.value)"
+      ></ion-searchbar>
+      
+      <ion-item *ngFor="let code of cpcCodes">
+        <ion-label>
+            {{code.classificationNumber}}:
+            {{code.classificationText | sentencecase | slice: 0:75}}...
+            <!-- {{code.classificationText}} -->
+        </ion-label>
+        <!-- ion-checkbox: send in code.checkedToggle with a bang because it will initialize it, then I have to flip it back in the .ts file -->
+      <ion-checkbox 
+        slot="start" 
+        checked="false"
+        [(ngModel)]="code.checkedToggle" 
+        (ionChange)="toggleCheckbox(code.classificationNumber, !code.checkedToggle)"
+      ></ion-checkbox>
+      </ion-item>
+    </ion-list>

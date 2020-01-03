@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Classification Results</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card 
+      *ngFor="let card of list"
+      [routerLink]="['/patent-document/', card.docNumber]"
+      >
+      <ion-slides pager='true' [options]='slideOpts'>
+        <ion-slide *ngFor="let slide of card.picBufferArray">
+            <ion-img class="ionImage" [src]="slide"></ion-img>
+          
+        </ion-slide>
+      </ion-slides>
+      <ion-item>
+          {{card.title}}
+          {{card.docNumber}}
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+  
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Title Search</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+    <!-- (ionChange)="createTitleListWithImages($event.target?.value)" -->
+
+<ion-content padding>
+  <ion-searchbar 
+    placeholder="Title Search" 
+    searchIcon="search"
+    debounce="500" 
+    (ionClear)="clearArray()"
+    (ionFocus)="clearArray()"
+    (ionChange)="searchTerm$.next($event.target?.value)"
+    
+    [(ngModel)]="searchTermInput"
+  >
+    <!-- <ion-label position="floating">Title Search Term</ion-label> -->
+    <!-- <ion-input (ionInput)="searchTerm$.next($event.target.value)"></ion-input> -->
+    <!-- <ion-input debounce="400" (ionChange)="searchTerm$.next($event.target.value)"></ion-input> -->
+  </ion-searchbar>
+
+  <div *ngIf="classificationArray.length > 0">
+    Classifications: <span class="classSpan" *ngFor="let classification of classificationArray">
+      {{classification.classificationNumber}} <span class="classX">X</span> 
+    </span>
+    
+  </div>
+  
+
+  <div class="centerIonSpinner">
+      <ion-spinner *ngIf="searchTermInput && results.length == 0"></ion-spinner>
+  </div>
+
+  <!-- new ion card code start -->
+  <ion-list>
+    <ion-card *ngFor="let result of results"
+    [routerLink]="['/patent-document/', result.docNumber]"
+    >
+      <ion-slides pager='true' [options]='slideOpts'>
+        <ion-slide *ngFor="let slide of result.picBufferArray">
+            <ion-img class="ionImage" [src]="slide"></ion-img>
+          
+        </ion-slide>
+      </ion-slides>
+
+
+      <ion-item href="#" class="">
+        <ion-card-header>{{result.title}}</ion-card-header>
+        
+      </ion-item>
+      <ion-label>Patent: {{result.docNumber}}</ion-label>
+
+    </ion-card>
+    
+  </ion-list>
+
+
+
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreTitles($event)">
+    <ion-infinite-scroll-content loadSpinner="bubble" loadingText="loading titles..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- <pagination-controls class="titlePagination" (pageChange)="p = $event"></pagination-controls> -->
+
+</ion-content>
+

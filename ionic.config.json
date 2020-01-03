@@ -1,0 +1,9 @@
+{
+  "name": "mlai-patent-search-v1",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "ffe42477",
+  "defaultBrowser" : "chrome"
+}

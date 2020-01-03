@@ -1,0 +1,12 @@
+<div class="right" *ngIf="classifications">
+
+  <h3>classifications</h3>
+
+  <ul>
+    <div *ngFor="let classification of classArray">
+      
+      <a [href]="classification.letter" target="_blank">{{ classification }}</a>
+    </div>
+  </ul>
+
+</div>

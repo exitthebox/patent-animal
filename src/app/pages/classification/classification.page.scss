@@ -1,0 +1,54 @@
+.searchButtonWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 50%;
+}
+
+.searchButtonSize{
+    width: 50%;
+    --background: #333333;
+}
+
+.cpcCodes{
+    --background: #b6b6b6;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.centerIonSpinner{
+    text-align: center;
+  }
+
+  ion-spinner {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.cpcCodeSelected{
+    --background:rgb(250, 227, 152);
+}
+
+.mat-grid-tile.mat-figure {
+    padding: 10px;
+}
+
+
+
+.mat-grid-tile.checked {
+    background:rgb(250, 227, 152);
+    padding: 10px;
+
+}
+
+.unchecked {
+    --background:rgb(255, 255, 255);
+
+}
+
+.searchTermBar {
+    
+     display: none;
+    // opacity: 0;
+    --transition: -2s ease;
+}
