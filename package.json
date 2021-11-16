@@ -35,7 +35,7 @@
     "@ngrx/store": "^8.4.0",
     "ajv": "^6.9.1",
     "angular-neo4j": "^0.7.1",
-    "aws-sdk": "^2.477.0",
+    "aws-sdk": "^2.814.0",
     "aws4": "^1.8.0",
     "cordova-plugin-inappbrowser": "3.0.0",
     "cordova-plugin-ionic": "^5.0.0",
