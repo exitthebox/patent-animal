@@ -33,7 +33,7 @@
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "^2.2.0",
     "@ngrx/store": "^8.4.0",
-    "ajv": "^6.9.1",
+    "ajv": "^6.12.3",
     "angular-neo4j": "^0.7.1",
     "aws-sdk": "^2.477.0",
     "aws4": "^1.8.0",
